@@ -1,0 +1,21 @@
+
+{
+  "/api": {
+   "target": "http://localhost:3000", 
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/templates": {
+    "target": "http://localhost:3000",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/output": {
+    "target": "http://localhost:3000",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

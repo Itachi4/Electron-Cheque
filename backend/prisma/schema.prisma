@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  role      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+}
+
+model Company {
+  id        Int              @id @default(autoincrement())
+  name      String
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  banks     Bank[]
+  templates ChequeTemplate[]
+}
+
+model Account {
+  id        Int      @id @default(autoincrement())
+  number    String
+  bankId    Int
+  lastCheck Int      @default(1000)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  bank      Bank     @relation(fields: [bankId], references: [id])
+}
+
+model ChequeTemplate {
+  id         Int      @id @default(autoincrement())
+  companyId  Int
+  bankId     Int      @unique
+  background String
+  fieldMap   Json
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+  bank       Bank     @relation(fields: [bankId], references: [id])
+  company    Company  @relation(fields: [companyId], references: [id])
+}
+
+model Bank {
+  id            Int             @id @default(autoincrement())
+  name          String
+  companyId     Int
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  routingNumber String?
+  accounts      Account[]
+  company       Company         @relation(fields: [companyId], references: [id])
+  template      ChequeTemplate?
+}

@@ -1,0 +1,79 @@
+const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
+const fs = require('fs');
+const path = require('path');
+const fontkit = require('@pdf-lib/fontkit');
+const { PrismaClient } = require('@prisma/client');
+
+const prisma = new PrismaClient();
+
+async function generateChequePDF(accountId) {
+  const templatePath = path.join(__dirname, 'templates', 'Sample Template - blank MYB 10021-10030.pdf');
+  const pdfDoc = await PDFDocument.load(fs.readFileSync(templatePath));
+  pdfDoc.registerFontkit(fontkit);
+
+  const page = pdfDoc.getPages()[0];
+
+  const micrFontBytes = fs.readFileSync(path.join(__dirname, 'fonts', 'micr.ttf'));
+  const micrFont = await pdfDoc.embedFont(micrFontBytes);
+  const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
+
+  // Get account
+  const account = await prisma.account.findUnique({ where: { id: accountId } });
+  if (!account) throw new Error(`Account ${accountId} not found.`);
+
+  const chequeNumber = account.lastCheck + 1;
+  const chequeStr = chequeNumber.toString().padStart(5, '0');
+  const micrLine = `0${chequeStr} 022000046 9891423205`;
+
+  console.log(`🧾 cheque #${chequeStr} → ${micrLine}`);
+
+  // === 1. Erase printed MICR + top/bottom cheque numbers ===
+    // === 1. Temporarily highlight erase zones ===
+    // === 1. Temporarily highlight erase zones ===
+    const debugColor = rgb(1, 0, 0); // RED for debug (replace with rgb(1,1,1) later)
+
+    page.drawRectangle({ x: 130, y: 555, width: 300, height: 20, color: debugColor }); // MICR line erase
+    page.drawRectangle({ x: 550, y: 766, width: 50, height: 20, color: debugColor }); // Top-right
+    page.drawRectangle({ x: 530, y: 510, width: 50, height: 20, color: debugColor }); // Bottom-right
+  
+
+
+  // === 2. Overlay MICR line ===
+  page.drawText(micrLine, {
+    x: 180,
+    y: 52,
+    font: micrFont,
+    size: 14,
+    color: rgb(0, 0, 0),
+  });
+
+  // === 3. Overlay top-right cheque number ===
+  page.drawText(`${chequeStr}`, {
+    x: 460,
+    y: 738,
+    font: helveticaFont,
+    size: 12,
+    color: rgb(0, 0, 0),
+  });
+
+  // === 4. Overlay bottom-right cheque number (below MICR) ===
+  page.drawText(`${chequeStr}`, {
+    x: 505,
+    y: 55,
+    font: helveticaFont,
+    size: 12,
+    color: rgb(0, 0, 0),
+  });
+
+  // === 5. Save + update ===
+  const outputPath = path.join(__dirname, 'output', `cheque_${chequeStr}.pdf`);
+  fs.writeFileSync(outputPath, await pdfDoc.save());
+  console.log(`✅ Saved → ${outputPath}`);
+
+  await prisma.account.update({
+    where: { id: accountId },
+    data: { lastCheck: chequeNumber },
+  });
+}
+
+module.exports = generateChequePDF;

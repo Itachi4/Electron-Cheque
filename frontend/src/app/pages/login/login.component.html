@@ -1,0 +1,42 @@
+<div class="login-container">
+    <div class="background-text">CHEQUE GENERATOR</div>
+    <mat-card class="login-card">
+        <div class="login-logo" style="text-align:center; margin-bottom: 1.5rem;">
+            <img src="assets/MYBlogo.png" alt="MYB Logo"
+                style="max-width: 120px; width: 100%; height: auto; display: block; margin: 0 auto;"
+                onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';" />
+            <div id="logo-fallback" style="display:none; color:#888; font-size:1rem; margin-top:0.5rem;">Logo not found.
+                Please place your logo at <b>src/assets/MYBlogo.png</b>.</div>
+        </div>
+        <mat-card-header>
+            <mat-card-title>
+                <span style="font-size: 2rem; font-weight: 600; color: #222;">Login</span>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" placeholder="Enter your email" required>
+                    <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Email is required</mat-error>
+                    <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Invalid email format</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" type="password" placeholder="Enter your password"
+                        required>
+                    <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required</mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || isLoading"
+                    class="login-btn">
+                    <mat-spinner diameter="20" *ngIf="isLoading"></mat-spinner>
+                    <span *ngIf="!isLoading">Login</span>
+                </button>
+
+                <p class="error-message" *ngIf="errorMessage">{{errorMessage}}</p>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

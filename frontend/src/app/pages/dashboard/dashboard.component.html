@@ -1,0 +1,46 @@
+<h2>Dashboard</h2>
+
+<label>Company:</label>
+<select [(ngModel)]="selectedCompany" (change)="onCompanyChange()">
+    <option *ngFor="let c of companies" [value]="c.id">{{ c.name }}</option>
+</select>
+
+<label>Bank:</label>
+<select [(ngModel)]="selectedBank" (change)="onBankChange()">
+    <option *ngFor="let b of banks" [value]="b.id">{{ b.name }}</option>
+</select>
+<label>Account:</label>
+<<select [(ngModel)]="selectedAccount" (change)="onAccountChange()">
+    <option *ngFor="let a of accounts" [value]="a.id">{{ a.number }}</option>
+    </select>
+
+
+    <h3>Cheque Details</h3>
+
+    <div>
+        <label>Next Cheque #:</label>
+        <strong *ngIf="nextChequeNumber">{{ nextChequeNumber }}</strong>
+    </div>
+
+    <div>
+        <label>Payee Name:</label>
+        <input [(ngModel)]="payeeName" placeholder="Payee Name" />
+    </div>
+
+    <div>
+        <label>Amount:</label>
+        <input type="number" [(ngModel)]="amount" placeholder="Amount" />
+    </div>
+
+    <div>
+        <label>Memo:</label>
+        <input [(ngModel)]="memo" placeholder="Memo" />
+    </div>
+
+    <h4>Preview</h4>
+    <div style="border: 1px solid #ccc; padding: 1rem; margin-top: 1rem;">
+        <p><strong>Cheque #:</strong> {{ nextChequeNumber }}</p>
+        <p><strong>Pay to the order of:</strong> {{ payeeName }}</p>
+        <p><strong>Amount:</strong> ${{ amount }}</p>
+        <p><strong>Memo:</strong> {{ memo }}</p>
+    </div>
