@@ -52,10 +52,15 @@ export interface LoginResponse {
     message: string;
     role: string;
 }
-
+export interface UpdatedAccountResponse {
+    id: number;
+    lastCheck: number;
+    company: Company;
+}
 @Injectable({
     providedIn: 'root'
 })
+
 export class ChequeService {
     //private apiUrl = 'http://localhost:3000/api';
      private apiUrl = '/api';
@@ -90,7 +95,26 @@ export class ChequeService {
         return this.http.post<GeneratedChequeResponse>(`${this.apiUrl}/generate`, { accountId, count });
     }
 
-    updateLastCheque(accountId: number, lastCheck: number) {
-        return this.http.patch(`${this.apiUrl}/accounts/${accountId}/last-cheque`, { lastCheck });
+    updateLastCheque(accountId: number, lastCheck: number): Observable<UpdatedAccountResponse> {
+        return this.http.patch<UpdatedAccountResponse>(`${this.apiUrl}/accounts/${accountId}/last-cheque`, { lastCheck });
     }
+
+    // --- ADD THE FOLLOWING NEW METHODS ---
+/**
+ * Fetches the list of cheques awaiting review from the backend.
+ */
+getPendingCheques(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/pending-cheques`);
+}
+
+/**
+ * Sends the command to the backend to process a selected pending cheque.
+ * @param pendingChequeId The ID of the pending cheque record.
+ * @param accountId The ID of the account selected by the user.
+ */
+processPendingCheque(pendingChequeId: number, accountId: number): Observable<any> {
+  const payload = { pendingChequeId, accountId };
+  return this.http.post(`${this.apiUrl}/process-pending-cheque`, payload);
+}
+
 } 

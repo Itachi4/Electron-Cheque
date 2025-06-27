@@ -252,6 +252,22 @@
 // module.exports = generateChequePDF;
 
 //-------------------------------------------------------------------NEW CODE//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
 const fs = require('fs');
@@ -367,5 +383,3 @@ async function generateChequePDF(accountId) {
 }
 
 module.exports = generateChequePDF;
-
-

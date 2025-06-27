@@ -7,10 +7,15 @@ const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
 const generateChequePDF = require('./generateCheque');
 const { exec } = require('child_process'); // Import child_process
+const multer = require('multer');
+const { extractChequeInfo } = require('./pdf-parser');
+const { generateFinalCheque } = require('./generateCheque');
 
 // Create app and Prisma instance
 const app = express();
 const prisma = new PrismaClient();
+const fs = require('fs').promises;
+const path = require('path');
 
 app.use(cors());
 app.use(express.json()); // Allow JSON in requests
@@ -20,7 +25,8 @@ app.use('/templates', express.static('templates'));
 // Serve static generated PDF files
 app.use('/output', express.static('output'));
 
-// Dummy login
+const upload = multer({ storage: multer.memoryStorage() });
+//  login
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
   console.log(`Login attempt: Email=${email}, Password=${password}`); // Log received credentials
@@ -189,6 +195,135 @@ app.patch('/api/accounts/:accountId/last-cheque', async (req, res) => {
 // Start the server
 const port = process.env.PORT || 3000; // Use environment variable or default to 3000
 const host = process.env.HOST || '0.0.0.0'; // Use environment variable or default to 0.0.0.0
+
+//new code start
+// =================================================================
+// THE NEW CHEQUE PROCESSING ENDPOINT
+// =================================================================
+// This route listens for a POST request at /api/upload-cheque.
+// 'upload.single('chequePdf')' is the middleware that catches the file.
+// 'chequePdf' MUST match the name we used in the C# code.
+app.post('/api/upload-cheque', upload.single('chequePdf'), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).send({ message: 'Error: No PDF file was uploaded.' });
+  }
+
+  console.log(`📄 Received file: ${req.file.originalname}. Parsing and placing in queue.`);
+
+  try {
+    const pdfBuffer = req.file.buffer;
+
+    // --- PARSE IMMEDIATELY ---
+    const chequeDetails = await extractChequeInfo(pdfBuffer);
+    console.log(`✅ Parsed Details: Company is "${chequeDetails.companyName}"`);
+
+    const pendingDir = path.join(__dirname, 'pending_cheques');
+    await fs.mkdir(pendingDir, { recursive: true });
+
+    const uniqueFileName = `${Date.now()}-${req.file.originalname}`;
+    const filePath = path.join(pendingDir, uniqueFileName);
+
+    await fs.writeFile(filePath, req.file.buffer);
+
+    // --- SAVE THE DETECTED NAME TO THE DATABASE ---
+    const pendingCheque = await prisma.pendingCheque.create({
+      data: {
+        fileName: req.file.originalname,
+        filePath: filePath,
+        detectedCompanyName: chequeDetails.companyName // Save the result of the parse
+      },
+    });
+
+    console.log(`✅ File saved to pending queue. DB record ID: ${pendingCheque.id}`);
+    res.status(201).json(pendingCheque);
+
+  } catch (error) {
+    console.error("❌ Error saving pending cheque:", error);
+    res.status(500).json({ message: 'Internal Server Error', error: error.message });
+  }
+});
+
+// NEW Endpoint to get all cheques awaiting review
+app.get('/api/pending-cheques', async (req, res) => {
+  try {
+    const pending = await prisma.pendingCheque.findMany({
+      where: { status: 'awaiting_review' },
+      orderBy: { createdAt: 'desc' }, // Show the newest first
+    });
+    res.status(200).json(pending);
+  } catch (error) {
+    console.error("❌ Error fetching pending cheques:", error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+// NEW Endpoint to process a specific pending cheque
+app.post('/api/process-pending-cheque', async (req, res) => {
+ // backend/index.js
+
+// ... inside the app.post('/api/process-pending-cheque', ... ) endpoint
+
+try {
+  const { PDFDocument } = require('pdf-lib');
+  const { pendingChequeId, accountId } = req.body;
+    // 1. Fetch the pending cheque record and account info from DB (no change here)
+    const pendingCheque = await prisma.pendingCheque.findUnique({ where: { id: pendingChequeId } });
+    const accountInfo = await prisma.account.findUnique({ where: { id: accountId } });
+    
+    if (!pendingCheque || !accountInfo) {
+      throw new Error('Pending cheque or account not found.');
+    }
+    
+    // --- THIS IS THE NEW WORKFLOW USING YOUR EXACT FILES ---
+
+    // Step A: Call your generateChequePDF function to create the temporary overlay PDF.
+    // This function will create a file like 'output/cheque_1116.pdf' and return its path.
+    // It will also correctly increment the 'lastCheck' number in the database.
+    console.log(`STEP A: Calling generateChequePDF for account ${accountId} to create overlay...`);
+    const overlayPdfPath = await generateChequePDF(accountId);
+    const newChequeNumber = accountInfo.lastCheck + 1; // Get the number that was just used
+
+    // Step B: Load the original QuickBooks PDF from the pending folder
+    console.log(`STEP B: Loading original QB PDF from ${pendingCheque.filePath}`);
+    const originalPdfBuffer = await fs.readFile(pendingCheque.filePath);
+    const mainPdf = await PDFDocument.load(originalPdfBuffer);
+
+    // Step C: Load the newly created overlay PDF
+    console.log(`STEP C: Loading the overlay PDF from ${overlayPdfPath}`);
+    const overlayPdfBuffer = await fs.readFile(overlayPdfPath);
+    const overlayPdf = await PDFDocument.load(overlayPdfBuffer);
+
+    // Step D: Embed the overlay page onto the main PDF
+    console.log('STEP D: Stamping the overlay onto the QB PDF...');
+    const [overlayPage] = await mainPdf.embedPdf(overlayPdf);
+    mainPdf.getPages()[0].drawPage(overlayPage); // Stamp it on the first page
+
+    // Step E: Save the final, merged document
+    const outputDir = path.join(__dirname, 'output');
+    const finalPdfPath = path.join(outputDir, `FINAL_MERGED_CHEQUE_${newChequeNumber}.pdf`);
+    const finalPdfBytes = await mainPdf.save();
+    await fs.writeFile(finalPdfPath, finalPdfBytes);
+    
+    // Step F: Clean up temporary and pending files
+    console.log('STEP F: Cleaning up temporary files...');
+    await fs.unlink(overlayPdfPath); // Delete the temporary overlay file
+    await fs.unlink(pendingCheque.filePath); // Delete the original pending file
+
+    // Step G: Mark the pending cheque as processed in the database
+    await prisma.pendingCheque.update({
+        where: { id: pendingChequeId },
+        data: { status: 'processed' },
+    });
+
+    console.log(`✅ Workflow complete! Final cheque saved to: ${finalPdfPath}`);
+    res.status(200).json({ message: 'Cheque processed and merged successfully!', path: finalPdfPath });
+
+} catch (error) {
+    console.error("❌ Error during final processing:", error);
+    res.status(500).json({ message: 'Internal Server Error', error: error.message });
+}
+});
+//new code end 
 
 app.listen(port, host, () => { // Pass both port and host
   console.log(`✅ API server running at http://${host}:${port}`);

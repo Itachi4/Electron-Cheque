@@ -1,91 +1,185 @@
+// .cheque-generator-container {
+//     max-width: 800px;
+//     margin: 2rem auto;
+//     padding: 0 1rem;
+// }
+
+// .generator-card {
+//     margin-bottom: 2rem;
+// }
+
+// .generator-form {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 1rem;
+//     padding: 1rem;
+// }
+
+// .full-width {
+//     width: 100%;
+// }
+
+// .info-box {
+//     background-color: #f5f5f5;
+//     padding: 1rem;
+//     border-radius: 4px;
+//     margin: 1rem 0;
+
+//     p {
+//         margin: 0.5rem 0;
+//         color: #666;
+//     }
+// }
+
+// .template-preview {
+//     margin: 1rem 0;
+
+//     h3 {
+//         margin-bottom: 1rem;
+//         color: #333;
+//     }
+
+//     .preview-container {
+//         border: 1px solid #ddd;
+//         padding: 1rem;
+//         border-radius: 4px;
+//         background-color: #fff;
+
+//         img {
+//             max-width: 100%;
+//             height: auto;
+//             display: block;
+//             margin: 0 auto;
+//         }
+//     }
+// }
+
+// .submit-button {
+//     margin-top: 1rem;
+//     height: 48px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     gap: 0.5rem;
+// }
+
+// .history-card {
+//     .history-item {
+//         display: flex;
+//         justify-content: space-between;
+//         align-items: center;
+//         width: 100%;
+//         padding: 0.5rem 0;
+//     }
+// }
+
+// // Responsive adjustments
+// @media (max-width: 600px) {
+//     .cheque-generator-container {
+//         margin: 1rem auto;
+//     }
+
+//     .generator-form {
+//         padding: 0.5rem;
+//     }
+
+//     .history-item {
+//         flex-direction: column;
+//         gap: 0.5rem;
+//         text-align: center;
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .cheque-generator-container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
 }
 
-.generator-card {
-    margin-bottom: 2rem;
+.mat-card-header {
+  padding-bottom: 16px;
 }
 
-.generator-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
+.mat-accordion .mat-expansion-panel {
+  margin-bottom: 8px;
+  border-radius: 8px !important; // Add important to override default styles
 }
 
-.full-width {
-    width: 100%;
+.mat-expansion-panel-header {
+  font-weight: 500;
 }
 
-.info-box {
-    background-color: #f5f5f5;
-    padding: 1rem;
-    border-radius: 4px;
-    margin: 1rem 0;
-
-    p {
-        margin: 0.5rem 0;
-        color: #666;
-    }
+.mat-icon {
+  margin-right: 16px;
 }
 
-.template-preview {
-    margin: 1rem 0;
-
-    h3 {
-        margin-bottom: 1rem;
-        color: #333;
-    }
-
-    .preview-container {
-        border: 1px solid #ddd;
-        padding: 1rem;
-        border-radius: 4px;
-        background-color: #fff;
-
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
-    }
+.processing-form-container {
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
 }
 
-.submit-button {
-    margin-top: 1rem;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 1rem;
 }
 
-.history-card {
-    .history-item {
+.form-field {
+  flex: 1;
+}
+
+.cheque-number-display {
+  display: flex;
+  gap: 24px;
+  background-color: #f5f5f5;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 0.9em;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.generated-cheque-card {
+    background-color: #e8f5e9; // A light green for success
+    border: 1px solid #4caf50; // A darker green border
+    margin-bottom: 1.5rem;
+
+    .mat-card-content {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 100%;
-        padding: 0.5rem 0;
-    }
-}
-
-// Responsive adjustments
-@media (max-width: 600px) {
-    .cheque-generator-container {
-        margin: 1rem auto;
+        padding: 8px 16px !important; // Override default padding
     }
 
-    .generator-form {
-        padding: 0.5rem;
+    .generated-cheque-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 500;
     }
 
-    .history-item {
-        flex-direction: column;
-        gap: 0.5rem;
-        text-align: center;
+    .dismiss-button {
+        color: #555;
     }
 }

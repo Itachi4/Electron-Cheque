@@ -59,3 +59,13 @@ model Bank {
   company       Company         @relation(fields: [companyId], references: [id])
   template      ChequeTemplate?
 }
+
+model PendingCheque {
+  id                  Int      @id @default(autoincrement())
+  fileName            String
+  filePath            String   @unique
+  status              String   @default("awaiting_review")
+  detectedCompanyName String?  // Add this new optional field
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
