@@ -1,3 +1,8 @@
+const fs = require('fs');
+const fsp = require('fs').promises;
+fs.appendFileSync('backend-log.txt', 'Backend started at ' + new Date() + '\n');
+console.log('=== BACKEND STARTED ===', new Date());
+
 // Load environment variables (like DB connection)
 require('dotenv').config();
 
@@ -14,7 +19,6 @@ const { generateFinalCheque } = require('./generateCheque');
 // Create app and Prisma instance
 const app = express();
 const prisma = new PrismaClient();
-const fs = require('fs').promises;
 const path = require('path');
 
 app.use(cors());
@@ -218,12 +222,12 @@ app.post('/api/upload-cheque', upload.single('chequePdf'), async (req, res) => {
     console.log(`✅ Parsed Details: Company is "${chequeDetails.companyName}"`);
 
     const pendingDir = path.join(__dirname, 'pending_cheques');
-    await fs.mkdir(pendingDir, { recursive: true });
+    await fsp.mkdir(pendingDir, { recursive: true });
 
     const uniqueFileName = `${Date.now()}-${req.file.originalname}`;
     const filePath = path.join(pendingDir, uniqueFileName);
 
-    await fs.writeFile(filePath, req.file.buffer);
+    await fsp.writeFile(filePath, req.file.buffer);
 
     // --- SAVE THE DETECTED NAME TO THE DATABASE ---
     const pendingCheque = await prisma.pendingCheque.create({
@@ -285,12 +289,12 @@ try {
 
     // Step B: Load the original QuickBooks PDF from the pending folder
     console.log(`STEP B: Loading original QB PDF from ${pendingCheque.filePath}`);
-    const originalPdfBuffer = await fs.readFile(pendingCheque.filePath);
+    const originalPdfBuffer = await fsp.readFile(pendingCheque.filePath);
     const mainPdf = await PDFDocument.load(originalPdfBuffer);
 
     // Step C: Load the newly created overlay PDF
     console.log(`STEP C: Loading the overlay PDF from ${overlayPdfPath}`);
-    const overlayPdfBuffer = await fs.readFile(overlayPdfPath);
+    const overlayPdfBuffer = await fsp.readFile(overlayPdfPath);
     const overlayPdf = await PDFDocument.load(overlayPdfBuffer);
 
     // Step D: Embed the overlay page onto the main PDF
@@ -302,12 +306,12 @@ try {
     const outputDir = path.join(__dirname, 'output');
     const finalPdfPath = path.join(outputDir, `FINAL_MERGED_CHEQUE_${newChequeNumber}.pdf`);
     const finalPdfBytes = await mainPdf.save();
-    await fs.writeFile(finalPdfPath, finalPdfBytes);
+    await fsp.writeFile(finalPdfPath, finalPdfBytes);
     
     // Step F: Clean up temporary and pending files
     console.log('STEP F: Cleaning up temporary files...');
-    await fs.unlink(overlayPdfPath); // Delete the temporary overlay file
-    await fs.unlink(pendingCheque.filePath); // Delete the original pending file
+    await fsp.unlink(overlayPdfPath); // Delete the temporary overlay file
+    await fsp.unlink(pendingCheque.filePath); // Delete the original pending file
 
     // Step G: Mark the pending cheque as processed in the database
     await prisma.pendingCheque.update({

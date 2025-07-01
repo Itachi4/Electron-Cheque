@@ -2,10 +2,14 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "electron-main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
+    "electron:start": "electron .",
+    "electron": "electron .",
+    "prebuild": "node -e \"require('fs-extra').copySync('../frontend/dist/frontend', './dist-frontend', {overwrite: true})\"",
+    "electron:build": "npm run prebuild && electron-builder",
     "dev": "nodemon index.js"
   },
   "keywords": [],
@@ -18,12 +22,36 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "fontkit": "^2.0.4",
+    "fs-extra": "^11.3.0",
     "multer": "^2.0.1",
     "pdf-lib": "^1.17.1",
     "pdf-parse": "^1.1.1"
   },
   "devDependencies": {
+    "electron": "^37.1.0",
+    "electron-builder": "^26.0.12",
     "nodemon": "^3.0.1",
     "prisma": "^6.10.1"
+  },
+  "build": {
+    "appId": "com.myb.cheque-printer",
+    "productName": "MYB Cheque Processing",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron-main.js",
+      "backend/**/*",
+      "dist-frontend/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "asarUnpack": [
+      "backend/**"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    }
   }
 }

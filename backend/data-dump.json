@@ -1,0 +1,436 @@
+{
+  "companies": [
+    {
+      "id": 1,
+      "name": "MYB",
+      "createdAt": "2025-06-05T16:20:47.303Z",
+      "updatedAt": "2025-06-05T16:21:59.527Z"
+    },
+    {
+      "id": 3,
+      "name": "Hawk Properties, LLC",
+      "createdAt": "2025-06-12T17:10:03.301Z",
+      "updatedAt": "2025-06-12T17:09:42.503Z"
+    },
+    {
+      "id": 2,
+      "name": "Hawk Development, LLC",
+      "createdAt": "2025-06-09T15:54:56.430Z",
+      "updatedAt": "2025-06-12T17:11:28.117Z"
+    },
+    {
+      "id": 5,
+      "name": "WNY Muslims",
+      "createdAt": "2025-06-12T18:09:07.179Z",
+      "updatedAt": "2025-06-12T18:09:02.200Z"
+    },
+    {
+      "id": 6,
+      "name": "Waterfall Properties",
+      "createdAt": "2025-06-12T18:22:19.205Z",
+      "updatedAt": "2025-06-12T18:22:34.271Z"
+    }
+  ],
+  "banks": [
+    {
+      "id": 5,
+      "name": "Alden",
+      "companyId": 6,
+      "createdAt": "2025-06-12T18:23:00.865Z",
+      "updatedAt": "2025-06-13T15:47:53.674Z",
+      "routingNumber": "22309611"
+    },
+    {
+      "id": 4,
+      "name": "M&T",
+      "companyId": 5,
+      "createdAt": "2025-06-12T18:12:35.391Z",
+      "updatedAt": "2025-06-16T17:19:56.899Z",
+      "routingNumber": "22000046"
+    },
+    {
+      "id": 3,
+      "name": "M&T",
+      "companyId": 3,
+      "createdAt": "2025-06-12T17:11:15.630Z",
+      "updatedAt": "2025-06-16T17:19:56.899Z",
+      "routingNumber": "22000046"
+    },
+    {
+      "id": 2,
+      "name": "M&T",
+      "companyId": 2,
+      "createdAt": "2025-06-09T15:55:30.173Z",
+      "updatedAt": "2025-06-16T17:19:56.899Z",
+      "routingNumber": "22000046"
+    },
+    {
+      "id": 1,
+      "name": "M&T",
+      "companyId": 1,
+      "createdAt": "2025-06-05T16:21:20.117Z",
+      "updatedAt": "2025-06-16T17:19:56.899Z",
+      "routingNumber": "22000046"
+    }
+  ],
+  "accounts": [
+    {
+      "id": 2,
+      "number": "9864753307",
+      "bankId": 2,
+      "lastCheck": 6150,
+      "createdAt": "2025-06-09T15:56:25.429Z",
+      "updatedAt": "2025-06-12T17:22:38.464Z"
+    },
+    {
+      "id": 3,
+      "number": "9838634997",
+      "bankId": 3,
+      "lastCheck": 1013,
+      "createdAt": "2025-06-12T17:13:49.580Z",
+      "updatedAt": "2025-06-12T17:55:35.808Z"
+    },
+    {
+      "id": 1,
+      "number": "9891423205",
+      "bankId": 1,
+      "lastCheck": 10050,
+      "createdAt": "2025-06-05T16:49:07.490Z",
+      "updatedAt": "2025-06-12T19:37:35.715Z"
+    },
+    {
+      "id": 4,
+      "number": "9853689827",
+      "bankId": 4,
+      "lastCheck": 1652,
+      "createdAt": "2025-06-12T18:13:16.496Z",
+      "updatedAt": "2025-06-20T16:23:54.328Z"
+    },
+    {
+      "id": 5,
+      "number": "5014493",
+      "bankId": 5,
+      "lastCheck": 1015,
+      "createdAt": "2025-06-12T18:24:36.324Z",
+      "updatedAt": "2025-06-27T19:00:08.813Z"
+    }
+  ],
+  "chequeTemplates": [
+    {
+      "id": 3,
+      "companyId": 2,
+      "bankId": 2,
+      "background": "templates/blank_hawkDevelopment_mtb.pdf",
+      "fieldMap": {
+        "micr": {
+          "x": 115,
+          "y": 553,
+          "font": "micr",
+          "width": 335,
+          "height": 20,
+          "fontSize": 20
+        },
+        "eraseZones": [
+          {
+            "x": 130,
+            "y": 555,
+            "width": 300,
+            "height": 25
+          },
+          {
+            "x": 550,
+            "y": 765,
+            "width": 50,
+            "height": 20
+          },
+          {
+            "x": 530,
+            "y": 510,
+            "width": 50,
+            "height": 20
+          },
+          {
+            "x": 517,
+            "y": 26,
+            "width": 100,
+            "height": 70
+          }
+        ],
+        "chequeNumberTopRight": {
+          "x": 550,
+          "y": 765,
+          "font": "helvetica",
+          "fontSize": 12
+        },
+        "chequeNumberBottomMost": {
+          "x": 515,
+          "y": 14,
+          "font": "helvetica",
+          "fontSize": 12
+        },
+        "chequeNumberBottomRight": {
+          "x": 535,
+          "y": 515,
+          "font": "helvetica",
+          "fontSize": 10
+        }
+      },
+      "createdAt": "2025-06-09T12:56:14.070Z",
+      "updatedAt": "2025-06-09T12:56:14.070Z"
+    },
+    {
+      "id": 2,
+      "companyId": 1,
+      "bankId": 1,
+      "background": "templates/Sample Template - blank MYB 10021-10030.pdf",
+      "fieldMap": {
+        "micr": {
+          "x": 118,
+          "y": 550,
+          "font": "micr",
+          "width": 360,
+          "height": 28,
+          "fontSize": 18
+        },
+        "eraseZones": [
+          {
+            "x": 130,
+            "y": 545,
+            "width": 480,
+            "height": 28
+          },
+          {
+            "x": 550,
+            "y": 766,
+            "width": 50,
+            "height": 20
+          },
+          {
+            "x": 530,
+            "y": 510,
+            "width": 50,
+            "height": 20
+          },
+          {
+            "x": 515,
+            "y": 14,
+            "width": 70,
+            "height": 20
+          }
+        ],
+        "chequeNumberTopRight": {
+          "x": 550,
+          "y": 766,
+          "font": "helvetica",
+          "width": 50,
+          "height": 20,
+          "fontSize": 12
+        },
+        "chequeNumberBottomMost": {
+          "x": 515,
+          "y": 14,
+          "font": "helvetica",
+          "width": 70,
+          "height": 20,
+          "fontSize": 12
+        },
+        "chequeNumberBottomRight": {
+          "x": 530,
+          "y": 510,
+          "font": "helvetica",
+          "width": 70,
+          "height": 20,
+          "fontSize": 12
+        }
+      },
+      "createdAt": "2025-06-09T12:56:14.070Z",
+      "updatedAt": "2025-06-09T12:56:14.070Z"
+    },
+    {
+      "id": 4,
+      "companyId": 3,
+      "bankId": 3,
+      "background": "templates/blank_hawkProperties.pdf",
+      "fieldMap": {
+        "micr": {
+          "x": 115,
+          "y": 553,
+          "font": "micr",
+          "width": 335,
+          "height": 20,
+          "fontSize": 20
+        },
+        "eraseZones": [
+          {
+            "x": 130,
+            "y": 555,
+            "width": 300,
+            "height": 25
+          },
+          {
+            "x": 550,
+            "y": 765,
+            "width": 50,
+            "height": 20
+          },
+          {
+            "x": 530,
+            "y": 510,
+            "width": 50,
+            "height": 20
+          },
+          {
+            "x": 517,
+            "y": 26,
+            "width": 100,
+            "height": 70
+          }
+        ],
+        "chequeNumberTopRight": {
+          "x": 550,
+          "y": 765,
+          "font": "helvetica",
+          "fontSize": 12
+        },
+        "chequeNumberBottomMost": {
+          "x": 515,
+          "y": 14,
+          "font": "helvetica",
+          "fontSize": 12
+        },
+        "chequeNumberBottomRight": {
+          "x": 535,
+          "y": 515,
+          "font": "helvetica",
+          "fontSize": 10
+        }
+      },
+      "createdAt": "2025-06-12T17:19:52.817Z",
+      "updatedAt": "2025-06-12T17:19:52.817Z"
+    },
+    {
+      "id": 5,
+      "companyId": 5,
+      "bankId": 4,
+      "background": "templates/blank_wnyMuslims.pdf",
+      "fieldMap": {
+        "micr": {
+          "x": 115,
+          "y": 553,
+          "font": "micr",
+          "width": 335,
+          "height": 20,
+          "fontSize": 20
+        },
+        "eraseZones": [
+          {
+            "x": 130,
+            "y": 555,
+            "width": 300,
+            "height": 25
+          },
+          {
+            "x": 550,
+            "y": 765,
+            "width": 50,
+            "height": 20
+          },
+          {
+            "x": 530,
+            "y": 510,
+            "width": 50,
+            "height": 20
+          },
+          {
+            "x": 517,
+            "y": 26,
+            "width": 100,
+            "height": 70
+          }
+        ],
+        "chequeNumberTopRight": {
+          "x": 550,
+          "y": 765,
+          "font": "helvetica",
+          "fontSize": 12
+        },
+        "chequeNumberBottomMost": {
+          "x": 515,
+          "y": 14,
+          "font": "helvetica",
+          "fontSize": 12
+        },
+        "chequeNumberBottomRight": {
+          "x": 535,
+          "y": 515,
+          "font": "helvetica",
+          "fontSize": 10
+        }
+      },
+      "createdAt": "2025-06-12T18:15:53.772Z",
+      "updatedAt": "2025-06-12T18:15:53.772Z"
+    },
+    {
+      "id": 6,
+      "companyId": 6,
+      "bankId": 5,
+      "background": "templates/blank_waterfallProp.pdf",
+      "fieldMap": {
+        "micr": {
+          "x": 115,
+          "y": 553,
+          "font": "micr",
+          "width": 335,
+          "height": 20,
+          "fontSize": 19
+        },
+        "eraseZones": [
+          {
+            "x": 130,
+            "y": 555,
+            "width": 300,
+            "height": 25
+          },
+          {
+            "x": 550,
+            "y": 765,
+            "width": 50,
+            "height": 20
+          },
+          {
+            "x": 530,
+            "y": 510,
+            "width": 50,
+            "height": 20
+          },
+          {
+            "x": 517,
+            "y": 26,
+            "width": 100,
+            "height": 70
+          }
+        ],
+        "chequeNumberTopRight": {
+          "x": 550,
+          "y": 765,
+          "font": "helvetica",
+          "fontSize": 12
+        },
+        "chequeNumberBottomMost": {
+          "x": 515,
+          "y": 14,
+          "font": "helvetica",
+          "fontSize": 12
+        },
+        "chequeNumberBottomRight": {
+          "x": 535,
+          "y": 515,
+          "font": "helvetica",
+          "fontSize": 10
+        }
+      },
+      "createdAt": "2025-06-12T18:25:43.791Z",
+      "updatedAt": "2025-06-12T18:25:43.791Z"
+    }
+  ]
+}

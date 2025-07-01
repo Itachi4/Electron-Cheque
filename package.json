@@ -1,7 +1,62 @@
 {
+  "name": "myb-cheque-app",
+  "version": "1.0.0",
   "devDependencies": {
     "concurrently": "^9.2.0",
     "electron": "^36.5.0",
     "electron-builder": "^26.0.12"
+  },
+  "main": "electron-main.js",
+  "scripts": {
+    "electron": "electron .",
+    "electron:build": "electron-builder",
+    "electron:start": "electron ."
+  },
+  "prisma": {
+    "schema": "backend/prisma/schema.prisma"
+  },
+  "build": {
+    "appId": "com.myb.cheque-printer",
+    "productName": "MYB Cheque Processing",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron-main.js",
+      "backend/**/*",
+      "backend/dist-frontend/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "node_modules",
+        "to": "node_modules"
+      },
+      {
+        "from": "backend",
+        "to": "backend"
+      },
+      {
+        "from": "backend/node-win",
+        "to": "node-win"
+      }
+    ],
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "dependencies": {
+    "@pdf-lib/fontkit": "^1.1.1",
+    "@prisma/client": "^6.10.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.0.0",
+    "express": "^5.1.0",
+    "fontkit": "^2.0.4",
+    "fs-extra": "^11.3.0",
+    "multer": "^2.0.1",
+    "pdf-lib": "^1.17.1",
+    "pdf-parse": "^1.1.1",
+    "which": "^5.0.0"
   }
 }

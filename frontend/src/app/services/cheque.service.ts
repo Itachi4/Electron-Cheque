@@ -62,8 +62,8 @@ export interface UpdatedAccountResponse {
 })
 
 export class ChequeService {
-    //private apiUrl = 'http://localhost:3000/api';
-     private apiUrl = '/api';
+    private apiUrl = 'http://localhost:3000/api';
+    //  private apiUrl = '/api';
 
     constructor(private http: HttpClient) { }
 
@@ -99,7 +99,7 @@ export class ChequeService {
         return this.http.patch<UpdatedAccountResponse>(`${this.apiUrl}/accounts/${accountId}/last-cheque`, { lastCheck });
     }
 
-    // --- ADD THE FOLLOWING NEW METHODS ---
+   
 /**
  * Fetches the list of cheques awaiting review from the backend.
  */
@@ -117,4 +117,7 @@ processPendingCheque(pendingChequeId: number, accountId: number): Observable<any
   return this.http.post(`${this.apiUrl}/process-pending-cheque`, payload);
 }
 
+confirmChequePrinted(pendingChequeId: number): Observable<any> {
+  return this.http.post(`${this.apiUrl}/cheques/confirm-print`, { pendingChequeId });
+}
 } 

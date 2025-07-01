@@ -1,5 +1,42 @@
+# Node modules
 node_modules/
-npm-debug.log
-yarn-debug.log
-yarn-error.log
+backend/node_modules/
+frontend/node_modules/
+
+# Build output
+dist/
+backend/dist-frontend/
+frontend/dist/
+
+# Electron build output
+*.exe
+*.dmg
+*.app
+*.asar
+
+# Prisma generated files (do NOT ignore generated client)
+backend/prisma/prod.db
+backend/prisma/*.sqlite
+backend/prisma/.env
+
+# Logs
+*.log
+backend-log.txt
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# Environment files
 .env
+backend/.env
+frontend/.env
+
+# Backup files
+*.bak
+*.backup
+cheuqe_bakup.backup
+cheque_app_backup.sql
