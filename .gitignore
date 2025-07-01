@@ -14,10 +14,7 @@ frontend/dist/
 *.app
 *.asar
 
-# Prisma generated files (do NOT ignore generated client)
-backend/prisma/prod.db
-backend/prisma/*.sqlite
-backend/prisma/.env
+
 
 # Logs
 *.log
@@ -31,12 +28,5 @@ Thumbs.db
 .vscode/
 
 # Environment files
-.env
-backend/.env
-frontend/.env
 
-# Backup files
-*.bak
-*.backup
-cheuqe_bakup.backup
-cheque_app_backup.sql
+
