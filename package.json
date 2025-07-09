@@ -1,5 +1,5 @@
 {
-  "name": "myb-cheque-app",
+  "name": "chequePrinting",
   "version": "1.0.0",
   "devDependencies": {
     "concurrently": "^9.2.0",
@@ -16,8 +16,8 @@
     "schema": "backend/prisma/schema.prisma"
   },
   "build": {
-    "appId": "com.myb.cheque-printer",
-    "productName": "MYB Cheque Processing",
+    "appId": "com.cheque.printing",
+    "productName": "chequePrinting",
     "directories": {
       "output": "dist"
     },
@@ -30,8 +30,8 @@
     ],
     "extraResources": [
       {
-        "from": "node_modules",
-        "to": "node_modules"
+        "from": "backend/node_modules",
+        "to": "backend/node_modules"
       },
       {
         "from": "backend",
@@ -40,6 +40,14 @@
       {
         "from": "backend/node-win",
         "to": "node-win"
+      },
+      {
+        "from": "backend/.env",
+        "to": "backend/.env"
+      },
+      {
+        "from": "prisma/prod.db",
+        "to": "prod.db" 
       }
     ],
     "win": {

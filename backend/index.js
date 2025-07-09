@@ -4,7 +4,9 @@ fs.appendFileSync('backend-log.txt', 'Backend started at ' + new Date() + '\n');
 console.log('=== BACKEND STARTED ===', new Date());
 
 // Load environment variables (like DB connection)
-require('dotenv').config();
+require('dotenv').config({ path: require('path').join(__dirname, '.env') });
+console.log("ENV DATABASE_URL:", process.env.DATABASE_URL);
+console.log('DATABASE_URL:', process.env.DATABASE_URL);
 
 // Import required libraries
 const express = require('express');
@@ -27,7 +29,8 @@ app.use(express.json()); // Allow JSON in requests
 // Serve static template files
 app.use('/templates', express.static('templates'));
 // Serve static generated PDF files
-app.use('/output', express.static('output'));
+app.use('/output', express.static(path.join(__dirname, 'output')));
+console.log('Serving static files from:', path.join(__dirname, 'output'));
 
 const upload = multer({ storage: multer.memoryStorage() });
 //  login

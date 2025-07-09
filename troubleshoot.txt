@@ -1,0 +1,80 @@
+Troubleshooting Guide: Packaging and Running Electron + Prisma App
+===============================================================
+
+Problem:
+--------
+After building and installing the Electron app, the backend fails to start with errors like:
+- "@prisma/client did not initialize yet. Please run 'prisma generate' and try to import it again."
+- Or, the backend cannot find its dependencies (node_modules).
+
+Root Cause:
+-----------
+The backend's dependencies (including the generated Prisma client) were not included in the packaged app. By default, electron-builder does not copy `backend/node_modules` unless explicitly told to do so. As a result, the backend cannot find `@prisma/client` or other required modules at runtime.
+
+Resolution Steps:
+-----------------
+
+1. **Install Backend Dependencies**
+   - Ensure all backend dependencies are installed in `backend/node_modules`.
+   - Command:
+     ```sh
+     cd Electron-Cheque/backend
+     npm install
+     ```
+   - *Reason:* This creates the `backend/node_modules` directory with all required modules for the backend, including Prisma.
+
+2. **Generate the Prisma Client**
+   - Command:
+     ```sh
+     npx prisma generate --schema=prisma/schema.prisma
+     ```
+   - *Reason:* This generates the Prisma client code in `backend/node_modules/.prisma/client` and ensures it is ready for packaging.
+
+3. **Update `package.json` to Include Backend Dependencies**
+   - In the `build.extraResources` section, add:
+     ```json
+     "extraResources": [
+       {
+         "from": "backend/node_modules",
+         "to": "backend/node_modules"
+       },
+       {
+         "from": "backend/node-win",
+         "to": "node-win"
+       }
+     ]
+     ```
+   - *Reason:* This forces electron-builder to copy the entire `backend/node_modules` directory into the packaged app, making all backend dependencies available at runtime.
+
+4. **Clean the Build Output**
+   - Command:
+     ```sh
+     Remove-Item -Recurse -Force dist
+     ```
+   - *Reason:* Ensures a clean build by removing any previous build artifacts.
+
+5. **Rebuild the App**
+   - Command:
+     ```sh
+     npm run electron:build
+     ```
+   - *Reason:* Packages the app with the correct dependencies included.
+
+6. **Verify the Output**
+   - After building, check that you have:
+     - `dist/win-unpacked/resources/backend/node_modules/@prisma/client`
+     - `dist/win-unpacked/resources/backend/node_modules/.prisma/client`
+   - *Reason:* Confirms that all backend dependencies and the Prisma client are present in the packaged app.
+
+Summary Table:
+--------------
+| Step                        | Command/Action                                 | Reason                                      |
+|-----------------------------|------------------------------------------------|---------------------------------------------|
+| Install backend dependencies| cd Electron-Cheque/backend && npm install      | Ensure backend/node_modules exists          |
+| Generate Prisma client      | npx prisma generate --schema=prisma/schema.prisma | Generate Prisma client code              |
+| Update package.json         | Add backend/node_modules to extraResources      | Force inclusion of backend dependencies     |
+| Clean build output          | Remove-Item -Recurse -Force dist               | Clean build artifacts                       |
+| Rebuild app                 | npm run electron:build                         | Build with correct dependencies             |
+| Verify output               | Check dist/win-unpacked/resources/backend/node_modules | Ensure dependencies are present     |
+
+If you follow these steps, your packaged Electron app will work on any PC, and the backend will have all required dependencies, including Prisma. 
