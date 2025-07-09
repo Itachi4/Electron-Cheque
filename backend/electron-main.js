@@ -28,44 +28,40 @@ function createWindow() {
 function startServer() {
   const isPackaged = app.isPackaged;
 
-  // 1. Define the production database path inside the user's AppData folder.
+  // Path to copy the DB to
   const userDataPath = app.getPath('userData');
   const prodDbPath = path.join(userDataPath, 'prod.db');
 
-  // 2. Define the source path of the database bundled with the installer.
-  // In a packaged app, __dirname is ...\resources\app.asar
-  // The extraResource is copied to ...\resources\
-  const packagedDbPath = path.join(__dirname, '..', 'prisma', 'prod.db');
+  // Path to bundled DB in installer
+  const packagedDbPath = path.join(__dirname, '..', 'backend', 'prisma', 'prod.db');
 
-  // 3. On first launch, copy the pre-filled database to the user's AppData folder.
+  // Copy prod.db from bundled path to user path (first launch only)
   if (isPackaged && !fs.existsSync(prodDbPath)) {
-    console.log(`First launch: Copying database from ${packagedDbPath} to ${prodDbPath}`);
     try {
+      console.log(`📦 Copying prod.db to: ${prodDbPath}`);
       fs.copyFileSync(packagedDbPath, prodDbPath);
-      console.log('Database copied successfully.');
     } catch (error) {
-      console.error('Failed to copy database:', error);
+      console.error('❌ Failed to copy prod.db:', error);
     }
   }
 
-  // 4. Determine which database URL to use.
   const dbUrl = isPackaged
     ? `file:${prodDbPath}`
-    : `file:${path.join(__dirname, 'prisma/dev.db')}`; // Use dev.db for local development
+    : `file:${path.join(__dirname, 'backend/prisma/prod.db')}`;
 
-  const serverPath = path.join(__dirname, 'index.js');
+  console.log('🚀 Starting backend with DATABASE_URL:', dbUrl);
 
-  // 5. Start the Node.js server with the correct DATABASE_URL.
-  console.log(`Starting server with DATABASE_URL: ${dbUrl}`);
+  const serverPath = path.join(__dirname, 'backend/index.js');
   serverProcess = spawn('node', [serverPath], {
     env: {
       ...process.env,
-      DATABASE_URL: dbUrl
-    }
+      DATABASE_URL: dbUrl,
+    },
+    cwd: path.join(__dirname, 'backend'), // Optional: ensures file paths resolve correctly
   });
 
-  serverProcess.stdout.on('data', (data) => console.log(`Node Server: ${data}`));
-  serverProcess.stderr.on('data', (data) => console.error(`Node Server Error: ${data}`));
+  serverProcess.stdout.on('data', (data) => console.log(`📤 Server: ${data.toString().trim()}`));
+  serverProcess.stderr.on('data', (data) => console.error(`❌ Server Error: ${data.toString().trim()}`));
 }
 
 app.whenReady().then(() => {

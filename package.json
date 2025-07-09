@@ -46,8 +46,8 @@
         "to": "backend/.env"
       },
       {
-        "from": "prisma/prod.db",
-        "to": "prod.db" 
+        "from": "backend/prisma/prod.db",
+        "to": "backend/prisma/prod.db"
       }
     ],
     "win": {
