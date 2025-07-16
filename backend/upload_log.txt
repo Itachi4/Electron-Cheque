@@ -1,0 +1,96 @@
+[STEP 1] Batch file started. 
+[STEP 2] PDF_FILE is: %PDFFile% 
+[STEP 3] Running Node.js upload script... 
+C:\Program Files\nodejs\node.exe
+❌ Upload failed: ENOENT: no such file or directory, open 'C:\Users\Sravani\Desktop\electron-app-printer\Electron-Cheque\backend\%PDFFile%'
+[STEP 4] Node.js script finished. 
+[STEP 1] Batch file started. 
+[STEP 2] PDF_FILE is: Test 
+[STEP 3] Running Node.js upload script... 
+C:\Program Files\nodejs\node.exe
+❌ Upload failed: ENOENT: no such file or directory, open 'C:\Users\Sravani\Desktop\electron-app-printer\Electron-Cheque\backend\Test'
+[STEP 4] Node.js script finished. 
+[STEP 1] Batch file started. 
+[STEP 2] PDF_FILE is: Testing_checkPDF 
+[STEP 3] Running Node.js upload script... 
+C:\Program Files\nodejs\node.exe
+❌ Upload failed: ENOENT: no such file or directory, open 'C:\Users\Sravani\Desktop\electron-app-printer\Electron-Cheque\backend\Testing_checkPDF'
+[STEP 4] Node.js script finished. 
+[STEP 1] Batch file started. 
+[STEP 2] PDF_FILE is: Testing_checkPDF 
+[STEP 3] Running Node.js upload script... 
+C:\Program Files\nodejs\node.exe
+❌ Upload failed: ENOENT: no such file or directory, open 'C:\Users\Sravani\Desktop\electron-app-printer\Electron-Cheque\backend\Testing_checkPDF'
+[STEP 4] Node.js script finished. 
+[STEP 1] Batch file started. 
+[STEP 2] PDF_FILE is: Tokens 
+[STEP 3] Running Node.js upload script... 
+C:\Program Files\nodejs\node.exe
+❌ Upload failed: ENOENT: no such file or directory, open 'C:\Users\Sravani\Desktop\electron-app-printer\Electron-Cheque\backend\Tokens'
+[STEP 4] Node.js script finished. 
+[STEP 1] Batch file started. 
+[STEP 2] PDF_FILE is: Testing_checkPDF 
+[STEP 3] Running Node.js upload script... 
+C:\Program Files\nodejs\node.exe
+❌ Upload failed: ENOENT: no such file or directory, open 'C:\Users\Sravani\Desktop\electron-app-printer\Electron-Cheque\backend\Testing_checkPDF'
+[STEP 4] Node.js script finished. 
+[STEP 1] Batch file started. 
+[STEP 2] PDF_FILE is: C:\Users\Sravani\Desktop\temp_flex\ThisISIt__Guid_.pdf\ThisISIt__Guid_.pdf 
+[STEP 3] Running Node.js upload script... 
+C:\Program Files\nodejs\node.exe
+❌ Upload failed: ENOENT: no such file or directory, open 'C:\Users\Sravani\Desktop\temp_flex\ThisISIt__Guid_.pdf\ThisISIt__Guid_.pdf'
+[STEP 4] Node.js script finished. 
+[STEP 1] Batch file started. 
+[STEP 2] PDF_FILE is: C:\Users\Sravani\Desktop\temp_flex\ThisISIt__Guid__2.pdf 
+[STEP 3] Running Node.js upload script... 
+C:\Program Files\nodejs\node.exe
+✅ Uploaded: {
+  id: 51,
+  fileName: 'ThisISIt__Guid__2.pdf',
+  filePath: 'C:\\Users\\Sravani\\Desktop\\electron-app-printer\\Electron-Cheque\\backend\\pending_cheques\\1752689454871-ThisISIt__Guid__2.pdf',
+  status: 'awaiting_review',
+  detectedCompanyName: 'Unknown',
+  createdAt: '2025-07-16T18:10:54.878Z',
+  updatedAt: '2025-07-16T18:10:54.878Z'
+}
+[STEP 4] Node.js script finished.  
+[STEP 1] Batch file started. 
+[STEP 2] PDF_FILE is: C:\Users\Sravani\Desktop\temp_flex\The 
+[STEP 3] Running Node.js upload script... 
+C:\Program Files\nodejs\node.exe
+❌ Upload failed: ENOENT: no such file or directory, open 'C:\Users\Sravani\Desktop\temp_flex\The'
+[STEP 4] Node.js script finished. 
+[STEP 1] Batch file started. 
+[STEP 2] PDF_FILE is: C:\Users\Sravani\Desktop\temp_flex\ThisISit__Guid__3.pdf 
+[STEP 3] Running Node.js upload script... 
+C:\Program Files\nodejs\node.exe
+✅ Uploaded: {
+  id: 52,
+  fileName: 'ThisISit__Guid__3.pdf',
+  filePath: 'C:\\Users\\Sravani\\AppData\\Local\\Programs\\chequePrinting\\resources\\backend\\pending_cheques\\1752692224141-ThisISit__Guid__3.pdf',
+  status: 'awaiting_review',
+  detectedCompanyName: 'Unknown',
+  createdAt: '2025-07-16T18:57:04.153Z',
+  updatedAt: '2025-07-16T18:57:04.153Z'
+}
+[STEP 4] Node.js script finished. 
+[STEP 1] Batch file started. 
+[STEP 2] PDF_FILE is: C:\Users\Sravani\Desktop\temp_flex\XYZ__Guid_.pdf 
+[STEP 3] Running Node.js upload script... 
+C:\Program Files\nodejs\node.exe
+❌ Upload failed: 
+[STEP 4] Node.js script finished. 
+[STEP 1] Batch file started. 
+[STEP 2] PDF_FILE is: C:\Users\Sravani\Desktop\temp_flex\XYZz__Guid_.pdf 
+[STEP 3] Running Node.js upload script... 
+C:\Program Files\nodejs\node.exe
+✅ Uploaded: {
+  id: 53,
+  fileName: 'XYZz__Guid_.pdf',
+  filePath: 'C:\\Users\\Sravani\\AppData\\Local\\Programs\\chequePrinting\\resources\\backend\\pending_cheques\\1752692306120-XYZz__Guid_.pdf',
+  status: 'awaiting_review',
+  detectedCompanyName: 'Unknown',
+  createdAt: '2025-07-16T18:58:26.122Z',
+  updatedAt: '2025-07-16T18:58:26.122Z'
+}
+[STEP 4] Node.js script finished. 
