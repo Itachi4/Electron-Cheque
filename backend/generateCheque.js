@@ -309,7 +309,7 @@ async function generateChequePDF(accountId) {
   const chequeNumber = account.lastCheck + 1;
   // const chequeStr = chequeNumber.toString().padStart(5, '00');
   const chequeStr = chequeNumber.toString().padStart(0);
-  const routingNumber = account.bank.routingNumber; // new line for routing number
+  const routingNumber = String(account.bank.routingNumber) // new line for routing number
   // const micrLine = `C00${chequeStr}C A022000046A    ${account.number}C`;
   let micrLine;
   if (account.bank.name === 'Alden') { 
@@ -317,7 +317,7 @@ async function generateChequePDF(accountId) {
     const group1 = acctNum.slice(0, 3);
     const group2 = acctNum.slice(3, 6);
     const group3 = acctNum.slice(6);
-    micrLine = `C00${chequeStr}C A0${routingNumber}A    ${group1}D${group2}D${group3}C`;
+    micrLine = `C00${chequeStr}C A${routingNumber}A    ${group1}D${group2}D${group3}C`;
 
    }else{
    micrLine = `C00${chequeStr}C A${routingNumber}A ${account.number}C`;

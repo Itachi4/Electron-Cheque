@@ -50,13 +50,13 @@ function startServer() {
     console.log(msg);
     logToFile(msg);
     // Show dialog only on first successful start
-    if (data.toString().includes('BACKEND STARTED')) {
-      dialog.showMessageBox({
-        type: 'info',
-        title: 'Backend Started',
-        message: 'Backend started successfully!'
-      });
-    }
+    // if (data.toString().includes('BACKEND STARTED')) {
+    //   dialog.showMessageBox({
+    //     type: 'info',
+    //     title: 'Backend Started',
+    //     message: 'Backend started successfully!'
+    //   });
+    // }
   });
   serverProcess.stderr.on('data', (data) => {
     const msg = `Node Server Error: ${data}`;
@@ -68,7 +68,7 @@ function startServer() {
     const msg = `Node server process exited with code ${code}`;
     console.log(msg);
     logToFile(msg);
-    dialog.showErrorBox('Backend Closed', `Backend exited with code ${code}`);
+    // dialog.showErrorBox('Backend Closed', `Backend exited with code ${code}`);
   });
   serverProcess.on('error', (err) => {
     const msg = `Failed to start backend process: ${err}`;
@@ -102,7 +102,7 @@ function createWindow() {
   mainWindow.loadFile(filePath)
     .then(() => console.log('Main window loaded successfully.'))
     .catch(err => console.error('Failed to load file:', err));
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 }
 
 // The rest of the file remains the same...

@@ -1,0 +1,239 @@
+<head>
+<style>
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f8f9fa;
+  color: #222;
+  margin: 0;
+  padding: 0 0 40px 0;
+}
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 40px 32px 32px 32px;
+}
+h1, h2, h3 {
+  color: #2a4d7a;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+h1 {
+  font-size: 2.2em;
+  border-bottom: 2px solid #e3e8ee;
+  padding-bottom: 0.3em;
+}
+h2 {
+  font-size: 1.5em;
+  border-bottom: 1px solid #e3e8ee;
+  padding-bottom: 0.2em;
+}
+h3 {
+  font-size: 1.15em;
+  color: #3a5c8c;
+}
+hr {
+  border: none;
+  border-top: 1px solid #e3e8ee;
+  margin: 2em 0;
+}
+code {
+  background: #f1f3f6;
+  color: #c7254e;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.98em;
+}
+pre {
+  background: #f1f3f6;
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+li {
+  margin-bottom: 0.4em;
+}
+a {
+  color: #2a4d7a;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+}
+td, th {
+  border: 1px solid #e3e8ee;
+  padding: 8px 12px;
+}
+th {
+  background: #f1f3f6;
+}
+@media (max-width: 900px) {
+  .container {
+    padding: 16px 4vw;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 id="cheque-printing-app-user-manual">Cheque Printing App – User Manual</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol type="1">
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#system-requirements">System Requirements</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#first-time-setup">First-Time Setup</a></li>
+<li><a href="#launching-the-app">Launching the App</a></li>
+<li><a href="#using-the-app">Using the App</a>
+<ul>
+<li><a href="#logging-in">Logging In</a></li>
+<li><a href="#dashboard-overview">Dashboard Overview</a></li>
+<li><a href="#generating-a-cheque">Generating a Cheque</a></li>
+<li><a href="#printing-a-cheque">Printing a Cheque</a></li>
+<li><a href="#viewing-pending-cheques">Viewing Pending Cheques</a></li>
+<li><a href="#editing-templates">Editing Templates</a></li>
+</ul></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#frequently-asked-questions-faq">Frequently Asked Questions (FAQ)</a></li>
+<li><a href="#getting-help">Getting Help</a></li>
+</ol>
+<hr />
+<h2 id="introduction">1. Introduction</h2>
+<p>Welcome to the Cheque Printing App!<br />
+This application allows you to generate, manage, and print cheques easily from your computer.</p>
+<hr />
+<h2 id="system-requirements">2. System Requirements</h2>
+<ul>
+<li><strong>Operating System:</strong> Windows 10 or later</li>
+<li><strong>Disk Space:</strong> At least 500 MB free</li>
+<li><strong>Printer:</strong> Any standard printer connected to your computer</li>
+<li><strong>Internet:</strong> Not required for basic use</li>
+</ul>
+<hr />
+<h2 id="installation">3. Installation</h2>
+<h3 id="step-1-obtain-the-installer">Step 1: Obtain the Installer</h3>
+<ul>
+<li>You should receive a file named something like <code>chequePrinting-Setup.exe</code> from your administrator or IT team.</li>
+</ul>
+<h3 id="step-2-run-the-installer">Step 2: Run the Installer</h3>
+<ol type="1">
+<li>Double-click the <code>chequePrinting-Setup.exe</code> file.</li>
+<li>If prompted by Windows, click <strong>Yes</strong> to allow the app to make changes.</li>
+<li>Follow the on-screen instructions:
+<ul>
+<li>Choose the installation location (default is recommended).</li>
+<li>Click <strong>Install</strong>.</li>
+<li>Wait for the installation to complete.</li>
+</ul></li>
+</ol>
+<h3 id="step-3-finish-installation">Step 3: Finish Installation</h3>
+<ul>
+<li>Once done, you may see an option to <strong>Launch the App</strong>.<br /></li>
+<li>A shortcut will also be created on your Desktop and/or Start Menu.</li>
+</ul>
+<hr />
+<h2 id="first-time-setup">4. First-Time Setup</h2>
+<h3 id="step-1-database-file">Step 1: Database File</h3>
+<ul>
+<li>The app comes with a built-in database.<br /></li>
+<li><strong>If you are provided with a database file (<code>prod.db</code>):</strong>
+<ol type="1">
+<li>Place the file in the folder specified by your administrator (usually in <code>C:\Users\&lt;YourName&gt;\AppData\Roaming\chequePrinting\</code>).</li>
+<li>If unsure, ask your IT team for help.</li>
+</ol></li>
+</ul>
+<h3 id="step-2-save-cheques-from-quickbooks">Step 2: Save Cheques from QuickBooks (QB)</h3>
+<ul>
+<li>When exporting or saving cheques from QuickBooks, always save them to a folder named <strong>cheq</strong> on your computer.</li>
+<li>Our app will automatically pick up and process cheques from this <strong>cheq</strong> folder.</li>
+<li>If you need help finding or creating the <strong>cheq</strong> folder, ask your administrator or IT team.</li>
+</ul>
+<h3 id="step-3-printer-setup">Step 3: Printer Setup</h3>
+<ul>
+<li>Ensure your printer is connected and set as the default printer in Windows.</li>
+</ul>
+<hr />
+<h2 id="launching-the-app">5. Launching the App</h2>
+<ol type="1">
+<li>Double-click the <strong>Cheque Printing</strong> icon on your Desktop or find it in the Start Menu.</li>
+<li>The app will open and display the login screen.</li>
+</ol>
+<hr />
+<h2 id="using-the-app">6. Using the App</h2>
+<h3 id="logging-in">6.1 Logging In</h3>
+<ul>
+<li>Enter your username and password.</li>
+<li>Click <strong>Login</strong>.</li>
+<li>If you do not have an account, contact your administrator.</li>
+</ul>
+<h3 id="dashboard-overview">6.2 Dashboard Overview</h3>
+<ul>
+<li>After logging in, you will see the <strong>Dashboard</strong>.</li>
+</ul>
+<h3 id="printing-a-cheque">6.4 Printing a Cheque</h3>
+<ol type="1">
+<li>Go to the <strong>Pending Cheques</strong> section.</li>
+<li>Find the cheque you want to print.</li>
+<li>Click <strong>Print</strong> next to the cheque.</li>
+<li>Ensure your printer is ready and has paper.</li>
+<li>The cheque will be sent to your printer.</li>
+</ol>
+<h3 id="viewing-pending-cheques">6.5 Viewing Pending Cheques</h3>
+<ul>
+<li>All cheques waiting to be printed are listed in the <strong>Pending Cheques</strong> section.</li>
+<li>You can print, edit, or delete cheques from here.</li>
+</ul>
+<hr />
+<h2 id="troubleshooting">7. Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<ul>
+<li><strong>App won’t start:</strong>
+<ul>
+<li>Restart your computer and try again.</li>
+<li>Ensure you have installed all Windows updates.</li>
+</ul></li>
+<li><strong>Cannot print:</strong>
+<ul>
+<li>Check if your printer is connected and set as default.</li>
+<li>Ensure there is paper and ink in the printer.</li>
+</ul></li>
+<li><strong>Login issues:</strong>
+<ul>
+<li>Double-check your username and password.</li>
+<li>Contact your administrator if you forgot your credentials.</li>
+</ul></li>
+<li><strong>Database error:</strong>
+<ul>
+<li>Ensure the database file is in the correct location.</li>
+<li>Contact support if the problem persists.</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="frequently-asked-questions-faq">8. Frequently Asked Questions (FAQ)</h2>
+<p><strong>Q: Can I use the app on Mac or Linux?</strong><br />
+A: No, this app is designed for Windows only.</p>
+<p><strong>Q: Do I need an internet connection?</strong><br />
+A: No, the app works offline.</p>
+<p><strong>Q: How do I update the app?</strong><br />
+A: You will be notified if an update is available, or your administrator will provide a new installer.</p>
+<p><strong>Q: Where are my cheques saved?</strong><br />
+A: Cheques are saved in the app’s database and output folder. You can find printed cheques in the <code>output</code> folder inside the app’s directory.</p>
+<hr />
+<h2 id="getting-help">9. Getting Help</h2>
+<ul>
+<li><strong>User Guide:</strong> Refer to this manual for common questions.</li>
+<li><strong>Support:</strong> Contact Faizuddin at 716-994-4600 for further assistance.</li>
+<li><strong>Logs:</strong> If asked for logs, you can find them in the app’s data folder (ask your IT team for details).</li>
+</ul>
+<hr />
+<p><strong>Thank you for using the Cheque Printing App!</strong><br />
+If you have any feedback or suggestions, please let your administrator know.</p>
+</div>
+</body>

@@ -21,7 +21,7 @@ function createWindow() {
     mainWindow.loadFile(path.join(__dirname, 'dist-frontend/index.html'));
   } else {
     mainWindow.loadURL('http://localhost:4200');
-    mainWindow.webContents.openDevTools();
+    //mainWindow.webContents.openDevTools();
   }
 }
 

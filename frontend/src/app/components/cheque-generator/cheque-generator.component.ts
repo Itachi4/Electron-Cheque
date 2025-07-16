@@ -432,7 +432,7 @@ import { MatExpansionModule } from '@angular/material/expansion'; // <-- Import 
 })
 export class ChequeGeneratorComponent implements OnInit, OnDestroy {
   assignForm: FormGroup;
-  updateChequeForm: FormGroup; 
+  updateChequeForm: FormGroup;
   companies: Company[] = [];
   banks: Bank[] = [];
   accounts: Account[] = [];
@@ -533,8 +533,8 @@ export class ChequeGeneratorComponent implements OnInit, OnDestroy {
       this.assignForm.reset();
     }
   }
-  
- resetChequeNumbers() {
+
+  resetChequeNumbers() {
     this.lastChequeNumber = null;
     this.nextChequeNumber = null;
     this.updateChequeForm.reset(); // Also reset the new form
@@ -575,7 +575,7 @@ export class ChequeGeneratorComponent implements OnInit, OnDestroy {
 
       this.chequeService.processPendingCheque(this.selectedPendingChequeId, accountId)
         .subscribe({
-          next: (response) => {
+        next: (response) => {
             alert(`Success! Cheque #${this.nextChequeNumber} processed.`);
              // --- 2. CAPTURE THE RESPONSE AND SET THE LINK ---
             // The backend response has a 'path' property, e.g., "output\\FINAL_MERGED_CHEQUE_1121.pdf"
@@ -589,13 +589,13 @@ export class ChequeGeneratorComponent implements OnInit, OnDestroy {
               fileName: fileName
             };
             //end of new logic
-            this.isProcessing = false;
+          this.isProcessing = false;
             this.selectedPendingChequeId = null; // This will close the panel
             this.fetchPendingCheques(); // Refresh the list
-          },
-          error: (err) => {
-            this.isProcessing = false;
-            alert(`Error: ${err.error?.message || 'Failed to process cheque.'}`);
+        },
+        error: (err) => {
+          this.isProcessing = false;
+          alert(`Error: ${err.error?.message || 'Failed to process cheque.'}`);
             console.error(err);
           }
         });
